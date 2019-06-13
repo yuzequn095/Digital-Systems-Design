@@ -1,0 +1,66 @@
+#-- Synopsys, Inc.
+#-- Project file D:\PhotonUser\My Files\Temporary Files\lab3\lab3test2\lab3test2_syn.prj
+#project files
+
+add_file -verilog -lib work "../Half_Sec_Pulse_Every_Sec.v" 
+add_file -verilog -lib work "../NBitCounter.v" 
+add_file -verilog -lib work "../Lab3_140L.v" 
+add_file -verilog -lib work "../bcd2segment.v" 
+add_file -verilog -lib work "../buart.v" 
+add_file -verilog -lib work "../countrce.v" 
+add_file -verilog -lib work "../decodeKeys.v" 
+add_file -verilog -lib work "../dispString.v" 
+add_file -verilog -lib work "../regrce.v" 
+add_file -verilog -lib work "../vbuf.v" 
+add_file -verilog -lib work "../latticehx1k.v" 
+#implementation: "lab3test2_Implmnt"
+impl -add lab3test2_Implmnt -type fpga
+
+#implementation attributes
+set_option -vlog_std v2001
+set_option -project_relative_includes 1
+
+#device options
+set_option -technology SBTiCE40
+set_option -part iCE40HX1K
+set_option -package TQ144
+set_option -speed_grade 
+set_option -part_companion ""
+
+#compilation/mapping options
+
+# mapper_options
+set_option -frequency auto
+set_option -write_verilog 0
+set_option -write_vhdl 0
+
+# Silicon Blue iCE40
+set_option -maxfan 10000
+set_option -disable_io_insertion 0
+set_option -pipe 1
+set_option -retiming 0
+set_option -update_models_cp 0
+set_option -fixgatedclocks 2
+set_option -fixgeneratedclocks 0
+
+# NFilter
+set_option -popfeed 0
+set_option -constprop 0
+set_option -createhierarchy 0
+
+# sequential_optimization_options
+set_option -symbolic_fsm_compiler 1
+
+# Compiler Options
+set_option -compiler_compatible 0
+set_option -resource_sharing 1
+
+#automatic place and route (vendor) options
+set_option -write_apr_constraint 1
+
+#set result format/file last
+project -result_format "edif"
+project -result_file ./lab3test2_Implmnt/lab3test2.edf
+project -log_file "./lab3test2_Implmnt/lab3test2.srr"
+impl -active lab3test2_Implmnt
+project -run synthesis -clean
